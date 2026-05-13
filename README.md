@@ -1,5 +1,15 @@
 # Klasifikasi Penyakit Daun Padi dengan Hybrid CNN-XGBoost
-Deteksi otomatis penyakit daun padi berbasis citra menggunakan MobileNetV2 sebagai feature extractor dan XGBoost sebagai classifier, untuk mendukung ketahanan pangan di Indonesia.
+Proyek ini mengklasifikasikan penyakit daun padi (Bacterial Blight, Blast,Brown Spot, Healthy) dari citra menggunakan pendekatan hybrid: MobileNetV2 sebagai feature extractor dan XGBoost sebagai classifier.
 
-Penyakit daun padi seperti Bacterial Blight, Blast, dan Brown Spot menjadi salah satu penyebab utama penurunan hasil panen. Deteksi manual membutuhkan tenaga ahli dan waktu yang tidak efisien untuk lahan pertanian skala luas. Perubahan iklim memperparah penyebaran penyakit ini.
-Proyek ini mengusulkan pendekatan hybrid CNN-XGBoost: CNN digunakan untuk mengekstrak fitur visual dari citra daun, lalu XGBoost mengambil alih tugas klasifikasi akhir menggabungkan kekuatan representasi deep learning dengan keunggulan ensemble ML.
+## Dataset 
+[Rice Leaf Disease Image Dataset — Kaggle](https://www.kaggle.com/datasets/nirmalsankalana/rice-leaf-disease-image)
+
+## Metode
+1. Preprocessing citra: resize 224×224, normalisasi, augmentasi
+2. Ekstraksi fitur dengan MobileNetV2 (pretrained ImageNet, tanpa top layer)
+3. Klasifikasi dengan XGBoost + hyperparameter tuning
+4. Evaluasi: Accuracy, Precision, Recall, Weighted F1-Score, Confusion Matrix
+5. Perbandingan dengan baseline CNN murni
+
+## Hasil 
+Coming soon
