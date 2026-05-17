@@ -1,5 +1,8 @@
-# Klasifikasi Penyakit Daun Padi dengan Hybrid CNN-XGBoost
-Proyek ini mengklasifikasikan penyakit daun padi (Bacterial Blight, Blast,Brown Spot, Healthy) dari citra menggunakan pendekatan hybrid: MobileNetV2 sebagai feature extractor dan XGBoost sebagai classifier.
+# Klasifikasi Penyakit Tanaman Menggunakan Perbandingan CNN, EfficientNetB0, dan Hybrid EfficientNetB0-XGBoost
+
+Proyek ini bertujuan untuk mengklasifikasikan penyakit tanaman berdasarkan citra daun menggunakan dataset PlantVillage. Dataset ini berisi gambar daun tanaman sehat dan daun tanaman yang terkena penyakit. Pada proyek ini digunakan tiga pendekatan model, yaitu CNN sederhana, EfficientNetB0, dan Hybrid EfficientNetB0-XGBoost.
+
+Model CNN sederhana digunakan sebagai baseline, EfficientNetB0 digunakan sebagai model transfer learning, sedangkan Hybrid EfficientNetB0-XGBoost digunakan sebagai model utama. EfficientNetB0 berperan sebagai feature extractor untuk mengambil fitur visual dari gambar daun, kemudian XGBoost digunakan sebagai classifier untuk menentukan kelas penyakit tanaman.
 
 # Kelompok 3
 
@@ -9,19 +12,70 @@ Proyek ini mengklasifikasikan penyakit daun padi (Bacterial Blight, Blast,Brown 
 | Sasmita Kusuma Jati | 24031554052 |
 | Nagatan Alief Putra Silahen | 24031554086 |
 
-## Dataset 
-[Rice Leaf Disease Image Dataset — Kaggle](https://www.kaggle.com/datasets/nirmalsankalana/rice-leaf-disease-image)
+## Dataset
 
-Rice Leaf Disease Image Dataset berisi citra daun padi untuk klasifikasi beberapa jenis penyakit tanaman seperti Bacterial Blight, Blast, Brown Spot, dan Healthy. Dataset digunakan untuk membantu proses deteksi penyakit tanaman secara otomatis menggunakan pendekatan machine learning dan deep learning. Dataset memiliki ukuran lebih dari 100 MB dengan format gambar .jpg dan cocok digunakan untuk image classification.
+[PlantVillage Dataset — Kaggle](https://www.kaggle.com/datasets/emmarex/plantdisease)
 
-Proposal kami yang berjudul **"Klasifikasi Penyakit Daun Padi Menggunakan Pendekatan Hybrid CNN-XGBoost untuk Mendukung Ketahanan Pangan"** mengajukan pengembangan sistem klasifikasi penyakit daun padi menggunakan MobileNetV2 sebagai feature extraction dan XGBoost sebagai classifier untuk membedakan jenis penyakit daun padi berdasarkan citra digital.
+PlantVillage Dataset merupakan dataset citra daun tanaman yang berisi berbagai jenis tanaman sehat dan tanaman berpenyakit. Dataset ini digunakan untuk tugas image classification, yaitu mengklasifikasikan gambar daun ke dalam kelas tertentu berdasarkan jenis tanaman dan kondisi penyakitnya.
+
+Dataset ini memiliki beberapa kelas, seperti daun sehat dan daun yang terkena penyakit pada tanaman tertentu. Karena data yang digunakan berbentuk gambar, fitur utama yang digunakan adalah informasi visual dari citra daun, seperti warna, tekstur, bercak, pola kerusakan, dan bentuk gejala penyakit.
+
+Proposal kami yang berjudul **"Klasifikasi Penyakit Tanaman Menggunakan Perbandingan CNN, EfficientNetB0, dan Hybrid EfficientNetB0-XGBoost pada Dataset PlantVillage untuk Mendukung Ketahanan Pangan"** mengajukan pengembangan sistem klasifikasi penyakit tanaman menggunakan perbandingan tiga model. Tujuannya adalah untuk mengetahui model mana yang memberikan performa terbaik dalam mengklasifikasikan penyakit tanaman berdasarkan citra daun.
 
 ## Metode
-1. Preprocessing citra: resize 224×224, normalisasi, augmentasi
-2. Ekstraksi fitur dengan MobileNetV2 (pretrained ImageNet, tanpa top layer)
-3. Klasifikasi dengan XGBoost + hyperparameter tuning
-4. Evaluasi: Accuracy, Precision, Recall, Weighted F1-Score, Confusion Matrix
-5. Perbandingan dengan baseline CNN murni
 
-## Hasil 
-Coming soon
+1. Preprocessing citra:
+   - Resize gambar
+   - Normalisasi nilai piksel
+   - Label encoding
+   - Train-test split
+   - Augmentasi data
+
+2. Model CNN sederhana:
+   - Digunakan sebagai baseline untuk melihat performa dasar klasifikasi citra daun.
+
+3. Model EfficientNetB0:
+   - Menggunakan transfer learning dengan EfficientNetB0 pretrained ImageNet.
+   - Digunakan sebagai model pembanding yang lebih kuat dan efisien.
+
+4. Model Hybrid EfficientNetB0-XGBoost:
+   - EfficientNetB0 digunakan sebagai feature extractor.
+   - Feature vector hasil ekstraksi digunakan sebagai input untuk XGBoost.
+   - XGBoost digunakan sebagai classifier utama.
+
+5. Evaluasi model:
+   - Accuracy
+   - Precision
+   - Recall
+   - F1-Score
+   - Confusion Matrix
+
+6. Perbandingan model:
+   - CNN sederhana
+   - EfficientNetB0
+   - Hybrid EfficientNetB0-XGBoost
+
+## Alur Pengerjaan
+
+```text
+Dataset PlantVillage
+↓
+Preprocessing Citra
+↓
+Resize dan Normalisasi
+↓
+Augmentasi Data
+↓
+Training CNN Sederhana
+↓
+Training EfficientNetB0
+↓
+Ekstraksi Fitur EfficientNetB0
+↓
+Klasifikasi dengan XGBoost
+↓
+Evaluasi Model
+↓
+Perbandingan Hasil
+↓
+Kesimpulan
