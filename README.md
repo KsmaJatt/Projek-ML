@@ -131,26 +131,28 @@ Evaluasi model dilakukan menggunakan:
 ```text
 📁 Projek-ML/
 ├── notebook/
-│   ├── Projek_ML_balanced.ipynb
-│
-├── dataset/
-│   ├── train/
-│   ├── validation/
+│   ├── Projek_ML_imbalanced.ipynb
+│   └── Projek_ML_balanced.ipynb
 │
 ├── model/
-│   ├── cnn_model.h5
-│   ├── efficientnet_model.h5
-│   ├── hybrid_xgboost.pkl
+│   ├── cnn_best.keras
+│   ├── effnet_phase2_best.keras
+│   ├── xgb_model.pkl
+│   ├── cnn_balanced_best.keras
+│   ├── effnet_phase2_balanced_best.keras
+│   └── xgb_balanced_model.pkl
 │
 ├── hasil/
 │   ├── confusion_matrix/
 │   ├── classification_report/
-│   ├── training_curve/
+│   └── training_curve/
 │
 ├── visualisasi/
+│   ├── distribusi_kelas.png
 │   ├── cnn_curve.png
 │   ├── efficientnet_curve.png
 │   ├── xgboost_curve.png
+│   └── perbandingan_imbalanced_vs_balanced.png
 │
 ├── README.md
 └── requirements.txt
