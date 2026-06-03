@@ -158,7 +158,7 @@ Evaluasi model dilakukan menggunakan:
 
 ---
 
-### 5. Penanganan Class Imbalance (Eksperimen Balanced)
+### 6. Penanganan Class Imbalance (Eksperimen Balanced)
 - CNN & EfficientNetB0: `compute_class_weight('balanced')`
 - XGBoost: `compute_sample_weight('balanced')`
 
@@ -296,11 +296,11 @@ Projek_ML_balanced.ipynb
 
 ## Pengembangan Selanjutnya
 
-* Penanganan class imbalance
-* Hyperparameter tuning
+* Pengujian pada citra daun di lingkungan nyata (lahan pertanian)
+* Eksplorasi Focal Loss sebagai alternatif class weighting
 * Implementasi Grad-CAM
 * Deployment model berbasis web/mobile
-* Pengujian pada citra daun di lingkungan nyata
+* Eksplorasi arsitektur lain: ResNet50, MobileNetV3, Vision Transformer
 
 ---
 
