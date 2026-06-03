@@ -132,7 +132,7 @@ Evaluasi model dilakukan menggunakan:
 📁 Projek-ML/
 ├── notebook/
 │   ├── Projek_ML_imbalanced.ipynb
-│   └── Projek_ML_balanced.ipynb
+│   └── Projek_ML_balanced1.ipynb dan Projek_ML_balanced2.ipynb
 │
 ├── model/
 │   ├── cnn_best.keras
