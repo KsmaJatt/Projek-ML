@@ -278,7 +278,7 @@ git clone https://github.com/KsmaJatt/Projek-ML.git
 
 ```bash
 Projek_ML_imbalanced.ipynb  → eksperimen tanpa class weighting
-Projek_ML_balanced.ipynb    → eksperimen dengan class weighting
+Projek_ML_balanced1 dan 2.ipynb    → eksperimen dengan class weighting
 ```
 
 3. Buka file notebook:
