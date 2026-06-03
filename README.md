@@ -158,20 +158,47 @@ Evaluasi model dilakukan menggunakan:
 
 ---
 
-## Hasil Sementara
+### 5. Penanganan Class Imbalance (Eksperimen Balanced)
+- CNN & EfficientNetB0: `compute_class_weight('balanced')`
+- XGBoost: `compute_sample_weight('balanced')`
 
-| Model                           | Accuracy | F1 Macro | F1 Weighted |
-| ------------------------------- | -------- | -------- | ----------- |
-| CNN Sederhana                   | 0.9384   | 0.93     | 0.94        |
-| EfficientNetB0                  | 0.9850   | 0.99     | 0.98        |
-| Hybrid EfficientNetB0 + XGBoost | 0.9767   | 0.97     | 0.98        |
+---
 
-### Temuan Sementara
+## Hasil Eksperimen
 
-* EfficientNetB0 menghasilkan performa terbaik dan training paling stabil.
-* CNN sederhana mengalami overfitting ringan pada epoch akhir.
-* Hybrid EfficientNetB0 + XGBoost menghasilkan performa kompetitif namun sedikit di bawah EfficientNetB0 murni.
-* Beberapa kelas penyakit memiliki kemiripan visual tinggi sehingga sulit dibedakan model.
+### Kondisi Imbalanced (Tanpa Class Weighting)
+
+| Model | Accuracy | Weighted F1 | Macro F1 |
+|-------|----------|-------------|----------|
+| **EfficientNetB0** | **98.50%** | **0.98** | **0.99** |
+| Hybrid XGBoost | 97.67% | 0.98 | 0.97 |
+| CNN Sederhana | 93.84% | 0.94 | 0.93 |
+
+### Kondisi Balanced (Dengan Class Weighting)
+
+| Model | Accuracy | Weighted F1 | Macro F1 |
+|-------|----------|-------------|----------|
+| **Hybrid XGBoost** | **95.15%** | **0.95** | 0.94 |
+| EfficientNetB0 | 94.76% | 0.95 | **0.95** |
+| CNN Sederhana | 87.77% | 0.88 | 0.85 |
+
+### Perbandingan Imbalanced vs Balanced
+
+| Model | Imbalanced | Balanced | Selisih |
+|-------|-----------|---------|---------|
+| EfficientNetB0 | 98.50% | 94.76% | -3.74% |
+| Hybrid XGBoost | 97.67% | 95.15% | -2.52% |
+| CNN Sederhana | 93.84% | 87.77% | -6.07% |
+
+---
+
+## Temuan Utama
+
+- **EfficientNetB0 imbalanced** adalah model terbaik secara keseluruhan dengan accuracy **98.50%** dan Macro F1 **0.99**
+- **Hybrid XGBoost balanced** sedikit mengungguli EfficientNetB0 pada kondisi balanced (95.15% vs 94.76%), menunjukkan XGBoost lebih responsif terhadap sample weighting
+- **Class weighting justru menurunkan performa** ketiga model, membuktikan bahwa transfer learning sudah cukup robust terhadap class imbalance tanpa teknik balancing tambahan
+- **Tomato_Early_blight** dan **Tomato__Target_Spot** secara konsisten menjadi kelas tersulit di semua model akibat kemiripan visual yang tinggi
+- CNN sederhana mengalami overfitting ringan pada epoch akhir namun berhasil dimitigasi oleh EarlyStopping dan ReduceLROnPlateau
 
 ---
 
@@ -248,7 +275,8 @@ git clone https://github.com/KsmaJatt/Projek-ML.git
 2. Jalankan notebook:
 
 ```bash
-jupyter notebook
+Projek_ML_imbalanced.ipynb  → eksperimen tanpa class weighting
+Projek_ML_balanced.ipynb    → eksperimen dengan class weighting
 ```
 
 3. Buka file notebook:
