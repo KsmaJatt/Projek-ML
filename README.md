@@ -1,140 +1,308 @@
-# Klasifikasi Penyakit Tanaman Menggunakan Perbandingan CNN, EfficientNetB0, dan Hybrid EfficientNetB0-XGBoost
+# 🌱 Plant Disease Classification using CNN, EfficientNetB0, and Hybrid EfficientNetB0-XGBoost
 
-## Proyek
+## 📌 Overview
 
-**Judul**: Klasifikasi Penyakit Tanaman Menggunakan Perbandingan CNN, EfficientNetB0, dan Hybrid EfficientNetB0-XGBoost pada Dataset PlantVillage untuk Mendukung Ketahanan Pangan
-**Topik**: Computer Vision, Deep Learning, dan Klasifikasi Penyakit Tanaman
-**Tujuan**: Proyek ini bertujuan untuk membangun sistem klasifikasi penyakit tanaman berbasis citra daun menggunakan pendekatan deep learning dan machine learning. Penelitian dilakukan dengan membandingkan performa CNN sederhana, EfficientNetB0, dan Hybrid EfficientNetB0-XGBoost untuk mengetahui model terbaik dalam mengklasifikasikan penyakit tanaman secara otomatis.
+Plant diseases are one of the major factors affecting agricultural productivity. Early and accurate disease detection can help farmers reduce crop losses and improve food security.
 
-**Anggota Tim (Kelompok 3 - 2024C)**:
+This project develops an automated plant disease classification system using leaf images from the PlantVillage Dataset. Three different approaches are compared:
 
-1. Chaesar Giveson (24031554058)
-2. Sasmita Kusuma Jati (24031554052)
-3. Nagatan Alief Putra Silahen (24031554086)
+* Convolutional Neural Network (CNN)
+* EfficientNetB0 Transfer Learning
+* Hybrid EfficientNetB0 + XGBoost
+
+The objective is to identify the most effective model for multiclass plant disease classification and evaluate the impact of class imbalance handling techniques.
 
 ---
 
-## Dataset
+## 🎯 Objectives
 
-Dataset yang digunakan berasal dari:
+This project aims to:
 
-[PlantVillage Dataset — Kaggle](https://www.kaggle.com/datasets/emmarex/plantdisease)
+* Build a plant disease classification model using leaf images.
+* Compare CNN, EfficientNetB0, and Hybrid EfficientNetB0-XGBoost.
+* Implement transfer learning using ImageNet pretrained weights.
+* Investigate the effect of class weighting on imbalanced datasets.
+* Evaluate model performance using multiple classification metrics.
 
-PlantVillage merupakan dataset citra daun tanaman yang berisi gambar daun sehat dan daun yang terinfeksi berbagai penyakit tanaman. Dataset digunakan untuk tugas multi-class image classification menggunakan pendekatan deep learning.
+---
 
-### Informasi Dataset
+## 👥 Team Members
 
-* Total gambar digunakan: 20.638 citra
-* Jumlah kelas: 15 kelas
-* Resolusi gambar: 224×224 piksel
-* Format warna: RGB
-* Dataset bersifat multi-class classification
+**Machine Learning Project - Group 3 (2024C)**
 
-Contoh kelas:
+| Name                        | Student ID  |
+| --------------------------- | ----------- |
+| Chaesar Giveson             | 24031554058 |
+| Sasmita Kusuma Jati         | 24031554052 |
+| Nagatan Alief Putra Silahen | 24031554086 |
+
+---
+
+# 📊 Dataset
+
+Dataset Source:
+
+https://www.kaggle.com/datasets/emmarex/plantdisease
+
+### Dataset Summary
+
+| Information       | Value                      |
+| ----------------- | -------------------------- |
+| Total Images      | 20,638                     |
+| Number of Classes | 15                         |
+| Image Size        | 224 × 224                  |
+| Color Format      | RGB                        |
+| Task Type         | Multi-Class Classification |
+
+### Example Classes
 
 * Pepper__bell___Bacterial_spot
 * Pepper__bell___healthy
 * Potato___Early_blight
 * Potato___Late_blight
 * Potato___healthy
-* Tomato_healthy
-* Tomato__Target_Spot
-* Tomato_Spider_mites_Two_spotted_spider_mite
+* Tomato___healthy
+* Tomato___Target_Spot
+* Tomato___Spider_mites_Two_spotted_spider_mite
 
 ---
 
-## Tujuan
+# 🧠 Methodology
 
-1. Membandingkan performa CNN sederhana, EfficientNetB0, dan Hybrid EfficientNetB0-XGBoost.
-2. Mengimplementasikan transfer learning menggunakan EfficientNetB0 pretrained ImageNet.
-3. Menggabungkan deep feature extraction dan XGBoost classifier pada pendekatan hybrid.
-4. Mengevaluasi performa model menggunakan accuracy, precision, recall, F1-score, dan confusion matrix.
-5. Menentukan model terbaik untuk klasifikasi penyakit tanaman berbasis citra daun.
+## 1. Data Preprocessing
 
----
+The following preprocessing steps were applied:
 
-## Metode
-
-### 1. Preprocessing Citra
-
-Tahapan preprocessing yang dilakukan:
-
-* Resize gambar menjadi 224×224 piksel
-* Normalisasi nilai piksel
+* Image resizing (224×224)
+* Pixel normalization
 * Label encoding
 * Train-validation split (80:20)
 * Data augmentation
 
-### 2. CNN Sederhana
+### Data Augmentation
 
-CNN sederhana digunakan sebagai baseline model untuk melihat performa deep learning tanpa pretrained model.
-
-Arsitektur CNN:
-
-* Conv2D 32 + ReLU
-* MaxPooling2D
-* Conv2D 64 + ReLU
-* MaxPooling2D
-* Conv2D 128 + ReLU
-* MaxPooling2D
-* Flatten
-* Dropout 0.5
-* Dense 256 + ReLU
-* Softmax Output 15 kelas
-
-### 3. EfficientNetB0
-
-EfficientNetB0 digunakan sebagai model transfer learning menggunakan pretrained weights dari ImageNet.
-
-Arsitektur:
-
-* EfficientNetB0 (include_top=False)
-* GlobalAveragePooling2D
-* Dropout 0.3
-* Dense 256 + ReLU
-* Dense Softmax
-
-Training dilakukan dalam dua fase:
-
-* Freeze seluruh layer EfficientNetB0
-* Fine-tuning 20 layer terakhir
-
-### 4. Hybrid EfficientNetB0 + XGBoost
-
-Pendekatan hybrid menggunakan:
-
-* EfficientNetB0 sebagai feature extractor
-* Feature vector hasil ekstraksi sebagai input XGBoost
-* XGBoost sebagai classifier akhir
-
-Parameter XGBoost:
-
-* n_estimators = 200
-* max_depth = 6
-* learning_rate = 0.1
-* eval_metric = mlogloss
-
-### 5. Evaluasi Model
-
-Evaluasi model dilakukan menggunakan:
-
-* Accuracy
-* Precision
-* Recall
-* F1-Score
-* Confusion Matrix
+* Rotation
+* Zoom
+* Width Shift
+* Height Shift
+* Horizontal Flip
 
 ---
 
-## Struktur Folder
+## 2. CNN Baseline Model
+
+A simple CNN architecture was developed as the baseline model.
+
+### Architecture
 
 ```text
-📁 Projek-ML/
-├── notebook/
-│   ├── Projek_ML_imbalanced.ipynb
-│   └── Projek_ML_balanced1.ipynb dan Projek_ML_balanced2.ipynb
+Input Image (224×224×3)
+        ↓
+Conv2D (32) + ReLU
+        ↓
+MaxPooling2D
+        ↓
+Conv2D (64) + ReLU
+        ↓
+MaxPooling2D
+        ↓
+Conv2D (128) + ReLU
+        ↓
+MaxPooling2D
+        ↓
+Flatten
+        ↓
+Dropout (0.5)
+        ↓
+Dense (256) + ReLU
+        ↓
+Softmax (15 Classes)
+```
+
+---
+
+## 3. EfficientNetB0 Transfer Learning
+
+EfficientNetB0 pretrained on ImageNet was used to leverage learned visual representations.
+
+### Architecture
+
+```text
+EfficientNetB0 (include_top=False)
+                ↓
+GlobalAveragePooling2D
+                ↓
+Dropout (0.3)
+                ↓
+Dense (256) + ReLU
+                ↓
+Softmax Output
+```
+
+### Training Strategy
+
+#### Phase 1
+
+* Freeze all EfficientNetB0 layers
+* Train classification head
+
+#### Phase 2
+
+* Unfreeze last 20 layers
+* Fine-tuning
+
+---
+
+## 4. Hybrid EfficientNetB0-XGBoost
+
+This approach combines deep feature extraction with gradient boosting classification.
+
+### Pipeline
+
+```text
+Image
+  ↓
+EfficientNetB0
+  ↓
+Feature Vector
+  ↓
+XGBoost
+  ↓
+Prediction
+```
+
+### XGBoost Parameters
+
+```python
+n_estimators = 200
+max_depth = 6
+learning_rate = 0.1
+eval_metric = "mlogloss"
+```
+
+---
+
+## 5. Class Imbalance Handling
+
+An additional experiment was conducted to evaluate class imbalance mitigation techniques.
+
+### CNN & EfficientNetB0
+
+```python
+compute_class_weight("balanced")
+```
+
+### XGBoost
+
+```python
+compute_sample_weight("balanced")
+```
+
+---
+
+# 🔄 Project Workflow
+
+```text
+PlantVillage Dataset
+        ↓
+Data Exploration
+        ↓
+Image Preprocessing
+        ↓
+Data Augmentation
+        ↓
+CNN Training
+        ↓
+EfficientNetB0 Training
+        ↓
+Feature Extraction
+        ↓
+XGBoost Classification
+        ↓
+Model Evaluation
+        ↓
+Performance Comparison
+        ↓
+Conclusion
+```
+
+---
+
+# 📈 Experimental Results
+
+## Imbalanced Dataset
+
+| Model          | Accuracy | Weighted F1 | Macro F1 |
+| -------------- | -------- | ----------- | -------- |
+| EfficientNetB0 | 98.50%   | 0.98        | 0.99     |
+| Hybrid XGBoost | 97.67%   | 0.98        | 0.97     |
+| CNN            | 93.84%   | 0.94        | 0.93     |
+
+---
+
+## Balanced Dataset
+
+| Model          | Accuracy | Weighted F1 | Macro F1 |
+| -------------- | -------- | ----------- | -------- |
+| Hybrid XGBoost | 95.15%   | 0.95        | 0.94     |
+| EfficientNetB0 | 94.76%   | 0.95        | 0.95     |
+| CNN            | 87.77%   | 0.88        | 0.85     |
+
+---
+
+## Accuracy Comparison
+
+| Model          | Imbalanced | Balanced | Difference |
+| -------------- | ---------- | -------- | ---------- |
+| EfficientNetB0 | 98.50%     | 94.76%   | -3.74%     |
+| Hybrid XGBoost | 97.67%     | 95.15%   | -2.52%     |
+| CNN            | 93.84%     | 87.77%   | -6.07%     |
+
+---
+
+# 🔍 Key Findings
+
+### Best Overall Model
+
+**EfficientNetB0 (Imbalanced)**
+
+* Accuracy: 98.50%
+* Macro F1: 0.99
+
+This model achieved the highest overall performance and demonstrated strong robustness against class imbalance.
+
+### Hybrid Model Performance
+
+The Hybrid EfficientNetB0-XGBoost model achieved the highest accuracy under the balanced setting and showed greater responsiveness to sample weighting.
+
+### Impact of Class Weighting
+
+Contrary to expectations, class weighting reduced performance across all models.
+
+This suggests that transfer learning using EfficientNetB0 already provides highly discriminative feature representations, reducing the need for additional imbalance handling techniques.
+
+### Difficult Classes
+
+The most challenging classes across all experiments were:
+
+* Tomato_Early_blight
+* Tomato_Target_Spot
+
+These diseases exhibit highly similar visual symptoms, making them difficult to distinguish.
+
+---
+
+# 📂 Project Structure
+
+```text
+📁 Projek-ML
 │
-├── model/
+├── notebook
+│   ├── Projek_ML_imbalanced.ipynb
+│   ├── Projek_ML_balanced1.ipynb
+│   └── Projek_ML_balanced2.ipynb
+│
+├── model
 │   ├── cnn_best.keras
 │   ├── effnet_phase2_best.keras
 │   ├── xgb_model.pkl
@@ -142,12 +310,12 @@ Evaluasi model dilakukan menggunakan:
 │   ├── effnet_phase2_balanced_best.keras
 │   └── xgb_balanced_model.pkl
 │
-├── hasil/
-│   ├── confusion_matrix/
-│   ├── classification_report/
-│   └── training_curve/
+├── hasil
+│   ├── confusion_matrix
+│   ├── classification_report
+│   └── training_curve
 │
-├── visualisasi/
+├── visualisasi
 │   ├── distribusi_kelas.png
 │   ├── cnn_curve.png
 │   ├── efficientnet_curve.png
@@ -160,105 +328,30 @@ Evaluasi model dilakukan menggunakan:
 
 ---
 
-### 6. Penanganan Class Imbalance (Eksperimen Balanced)
-- CNN & EfficientNetB0: `compute_class_weight('balanced')`
-- XGBoost: `compute_sample_weight('balanced')`
+# 🛠️ Technologies Used
 
----
-
-## Hasil Eksperimen
-
-### Kondisi Imbalanced (Tanpa Class Weighting)
-
-| Model | Accuracy | Weighted F1 | Macro F1 |
-|-------|----------|-------------|----------|
-| **EfficientNetB0** | **98.50%** | **0.98** | **0.99** |
-| Hybrid XGBoost | 97.67% | 0.98 | 0.97 |
-| CNN Sederhana | 93.84% | 0.94 | 0.93 |
-
-### Kondisi Balanced (Dengan Class Weighting)
-
-| Model | Accuracy | Weighted F1 | Macro F1 |
-|-------|----------|-------------|----------|
-| **Hybrid XGBoost** | **95.15%** | **0.95** | 0.94 |
-| EfficientNetB0 | 94.76% | 0.95 | **0.95** |
-| CNN Sederhana | 87.77% | 0.88 | 0.85 |
-
-### Perbandingan Imbalanced vs Balanced
-
-| Model | Imbalanced | Balanced | Selisih |
-|-------|-----------|---------|---------|
-| EfficientNetB0 | 98.50% | 94.76% | -3.74% |
-| Hybrid XGBoost | 97.67% | 95.15% | -2.52% |
-| CNN Sederhana | 93.84% | 87.77% | -6.07% |
-
----
-
-## Temuan Utama
-
-- **EfficientNetB0 imbalanced** adalah model terbaik secara keseluruhan dengan accuracy **98.50%** dan Macro F1 **0.99**
-- **Hybrid XGBoost balanced** sedikit mengungguli EfficientNetB0 pada kondisi balanced (95.15% vs 94.76%), menunjukkan XGBoost lebih responsif terhadap sample weighting
-- **Class weighting justru menurunkan performa** ketiga model, membuktikan bahwa transfer learning sudah cukup robust terhadap class imbalance tanpa teknik balancing tambahan
-- **Tomato_Early_blight** dan **Tomato__Target_Spot** secara konsisten menjadi kelas tersulit di semua model akibat kemiripan visual yang tinggi
-- CNN sederhana mengalami overfitting ringan pada epoch akhir namun berhasil dimitigasi oleh EarlyStopping dan ReduceLROnPlateau
-
----
-
-## Framework dan Library
-
-* TensorFlow / Keras
+* TensorFlow
+* Keras
 * EfficientNetB0
 * XGBoost
-* Scikit-learn
+* Scikit-Learn
 * NumPy
 * Pandas
 * Matplotlib
 * Seaborn
 
-Seluruh eksperimen dijalankan menggunakan GPU acceleration untuk mempercepat proses training deep learning.
-
 ---
 
-## Alur Pengerjaan
+# 🚀 Installation
 
-```text
-Dataset PlantVillage
-↓
-Preprocessing Citra
-↓
-Resize dan Normalisasi
-↓
-Augmentasi Data
-↓
-Training CNN Sederhana
-↓
-Training EfficientNetB0
-↓
-Ekstraksi Fitur EfficientNetB0
-↓
-Klasifikasi dengan XGBoost
-↓
-Evaluasi Model
-↓
-Perbandingan Hasil
-↓
-Kesimpulan
+Clone repository:
+
+```bash
+git clone https://github.com/KsmaJatt/Projek-ML.git
+cd Projek-ML
 ```
 
----
-
-## Syarat
-
-* Python 3.10 atau lebih tinggi
-* TensorFlow
-* XGBoost
-* Scikit-learn
-* NumPy
-* Pandas
-* Matplotlib
-* Seaborn
-
-Install dependensi:
+Install dependencies:
 
 ```bash
 pip install tensorflow xgboost scikit-learn pandas numpy matplotlib seaborn
@@ -266,46 +359,44 @@ pip install tensorflow xgboost scikit-learn pandas numpy matplotlib seaborn
 
 ---
 
-## Penggunaan
+# ▶️ Running Experiments
 
-1. Clone repository:
-
-```bash
-git clone https://github.com/KsmaJatt/Projek-ML.git
-```
-
-2. Jalankan notebook:
+### Imbalanced Experiment
 
 ```bash
-Projek_ML_imbalanced.ipynb  → eksperimen tanpa class weighting
-Projek_ML_balanced1 dan 2.ipynb    → eksperimen dengan class weighting
+Projek_ML_imbalanced.ipynb
 ```
 
-3. Buka file notebook:
+### Balanced Experiment
 
 ```bash
-Projek_ML_balanced.ipynb
+Projek_ML_balanced1.ipynb
+Projek_ML_balanced2.ipynb
 ```
 
-4. Jalankan seluruh cell untuk:
+Run all notebook cells to:
 
-* preprocessing data
-* training model
-* evaluasi model
-* visualisasi hasil
+* preprocess images
+* train models
+* evaluate performance
+* generate visualizations
 
 ---
 
-## Pengembangan Selanjutnya
+# 🔮 Future Work
 
-* Pengujian pada citra daun di lingkungan nyata (lahan pertanian)
-* Eksplorasi Focal Loss sebagai alternatif class weighting
-* Implementasi Grad-CAM
-* Deployment model berbasis web/mobile
-* Eksplorasi arsitektur lain: ResNet50, MobileNetV3, Vision Transformer
+Several improvements can be explored in future research:
+
+* Real-world field image evaluation
+* Grad-CAM explainability
+* Focal Loss implementation
+* Web/mobile deployment
+* ResNet50 comparison
+* MobileNetV3 comparison
+* Vision Transformer (ViT) comparison
 
 ---
 
-## Lisensi
+# 📚 Academic Purpose
 
-Proyek ini dibuat untuk keperluan akademik sebagai bagian dari tugas Pembelajaran Mesin S1 Sains Data Universitas Negeri Surabaya.
+This project was developed as part of the **Machine Learning Course** in the **Bachelor of Data Science Program, Universitas Negeri Surabaya (UNESA)**.
