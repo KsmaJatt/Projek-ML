@@ -32,8 +32,8 @@ This project aims to:
 
 | Name                        | Student ID  |
 | --------------------------- | ----------- |
-| Chaesar Giveson             | 24031554058 |
 | Sasmita Kusuma Jati         | 24031554052 |
+| Chaesar Giveson             | 24031554058 |
 | Nagatan Alief Putra Silahen | 24031554086 |
 
 ---
